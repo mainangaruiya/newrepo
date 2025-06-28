@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buy Items</title>
+  <style>
+    .card {
+      border: 1px solid #ccc;
+      padding: 12px;
+      margin: 12px;
+      width: 200px;
+      display: inline-block;
+      vertical-align: top;
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: 150px;
+    }
+  </style>
+</head>
+<body>
+    <nav style="background: #333; padding: 1em;">
+  <a href="uploads_page.html" style="color: white; margin-right: 20px; text-decoration: none;">Upload Items</a>
+  <a href="buy.html" style="color: white; text-decoration: none;">Buy Items</a>
+</nav>
+  <h1>Available Items</h1>
+  <div id="itemsContainer"></div>
+
+  <script>
+    const items = JSON.parse(localStorage.getItem("items")) || [];
+
+    const container = document.getElementById("itemsContainer");
+    items.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <h3>${item.name}</h3>
+        <p>Price: ${item.price}</p>
+        <button>Buy</button>
+      `;
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>
