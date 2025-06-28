@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload Item</title>
+</head>
+<body>
+  <h2>Upload New Item</h2>
+  <form id="uploadForm">
+    <label>Name:</label>
+    <input type="text" id="name" required><br><br>
+
+    <label>Price:</label>
+    <input type="text" id="price" required><br><br>
+
+    <label>Image:</label>
+    <input type="file" id="image" accept="image/*" required><br><br>
+
+    <button type="submit">Save Item</button>
+  </form>
+
+  <script>
+    document.getElementById("uploadForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const price = document.getElementById("price").value;
+      const imageFile = document.getElementById("image").files[0];
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        const imageData = reader.result;
+
+        const item = {
+          name: name,
+          price: price,
+          image: imageData
+        };
+
+        let items = JSON.parse(localStorage.getItem("items")) || [];
+        items.push(item);
+        localStorage.setItem("items", JSON.stringify(items));
+
+        alert("Item saved! Go to buy.html to see it.");
+        document.getElementById("uploadForm").reset();
+      };
+      reader.readAsDataURL(imageFile);
+    });
+  </script>
+</body>
+</html>
